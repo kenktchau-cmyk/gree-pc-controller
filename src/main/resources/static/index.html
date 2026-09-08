@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101e2b">
+  <meta name="description" content="Control your Gree air conditioner from this PC.">
+  <title>Gree · Climate control</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23101e2b'/%3E%3Cpath d='M16 6v20M7 11l18 10M7 21l18-10' stroke='%236de4dc' stroke-width='2'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/dashboard.css">
+  <script src="/dashboard.js" defer></script>
+</head>
+<body>
+  <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-climate" viewBox="0 0 24 24"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9M9 5l3 3 3-3M9 19l3-3 3 3M4.5 11.5l4-1-1-4M19.5 12.5l-4 1 1 4M7.5 17.5l1-4-4-1M16.5 6.5l-1 4 4 1"/></symbol>
+    <symbol id="i-power" viewBox="0 0 24 24"><path d="M12 3v9M6.3 5.9a9 9 0 1 0 11.4 0"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5M5.6 7A8 8 0 0 1 19 7l1 5M4 12l1 5a8 8 0 0 0 13.4 0"/></symbol>
+    <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3s-7 8-7 12a7 7 0 0 0 14 0c0-4-7-12-7-12ZM8 15a4 4 0 0 0 4 4"/></symbol>
+    <symbol id="i-fan" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M10 10C3 7 8 1 12 3c3 2 1 5 0 7M14 10c6-5 10 2 6 5-2 2-5-1-6-2M12 14c1 8-7 8-8 3-1-3 4-4 6-4"/></symbol>
+    <symbol id="i-swing" viewBox="0 0 24 24"><path d="M4 5h16M5 9h14M8 13v6m4-6v8m4-8v6M5 17l3 3 3-3M13 17l3 3 3-3"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
+  </svg>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark"><svg class="icon"><use href="#i-climate"/></svg></span><div><span class="wordmark">GREE<span class="brand-dot">.</span></span><span class="brand-caption">CLIMATE CONTROL</span></div></div>
+      <span class="connection" id="connection"><span class="status-dot"></span><span id="connectionText">Connecting</span></span>
+    </header>
+
+    <div class="heading"><div><p class="eyebrow">YOUR SPACE</p><h1>Air conditioner</h1></div><button class="refresh" id="refresh" type="button"><svg class="icon"><use href="#i-refresh"/></svg><span>Refresh</span></button></div>
+
+    <div class="control-layout">
+      <section class="thermostat" aria-labelledby="temperatureTitle">
+        <div class="card-heading"><h2 id="temperatureTitle">Temperature</h2><span class="unit-label">CELSIUS</span></div>
+        <div class="dial" id="dial">
+          <svg class="dial-ring" viewBox="0 0 300 300" aria-hidden="true"><circle class="dial-track" cx="150" cy="150" r="134"/><circle class="dial-progress" id="dialProgress" cx="150" cy="150" r="134" pathLength="100"/></svg>
+          <div class="dial-center"><span class="dial-label">SET TEMPERATURE</span><div class="temperature-number"><output id="temperatureValue" for="temperatureRange">—</output><span>°</span></div><span class="dial-note" id="dialNote">Waiting for your AC</span></div>
+        </div>
+        <div class="temperature-controls">
+          <button class="step" id="decrease" type="button" aria-label="Decrease temperature by one degree" disabled><svg class="icon"><use href="#i-minus"/></svg></button>
+          <div class="slider-wrap"><label class="sr-only" for="temperatureRange">Set temperature in degrees Celsius</label><input id="temperatureRange" type="range" min="16" max="30" step="1" value="25" disabled><div class="range-labels"><span>16°</span><span>30°</span></div></div>
+          <button class="step" id="increase" type="button" aria-label="Increase temperature by one degree" disabled><svg class="icon"><use href="#i-plus"/></svg></button>
+        </div>
+        <button class="apply" id="apply" type="button" disabled>Temperature is up to date</button>
+        <p class="temperature-hint">Choose a temperature, then apply it.</p>
+      </section>
+
+      <aside class="side-panel">
+        <section class="power-card" aria-labelledby="powerTitle"><div class="power-top"><div><p class="eyebrow">POWER</p><h2 id="powerTitle">Connecting…</h2></div><span class="power-symbol"><svg class="icon"><use href="#i-power"/></svg></span></div><p id="powerDescription">Reading the air conditioner’s status.</p><button id="power" type="button" class="power-button" disabled><svg class="icon"><use href="#i-power"/></svg><span id="powerAction">Please wait</span></button></section>
+
+        <section class="settings" aria-labelledby="settingsTitle"><div class="settings-heading"><h2 id="settingsTitle">Current settings</h2><span id="settingsSummary">Live from your AC</span></div><dl>
+          <div class="setting-row"><dt><span class="setting-icon"><svg class="icon"><use href="#i-drop"/></svg></span><label for="mode">Mode</label></dt><dd><select id="mode" disabled><option value="" disabled>Unavailable</option><option value="AUTO">Auto</option><option value="COOL">Cool</option><option value="DRY">Dry</option><option value="FAN">Fan only</option><option value="HEAT">Heat</option></select></dd></div>
+          <div class="setting-row"><dt><span class="setting-icon"><svg class="icon"><use href="#i-fan"/></svg></span><label for="fan">Fan speed</label></dt><dd><select id="fan" disabled><option value="" disabled>Unavailable</option><option value="AUTO">Auto</option><option value="LOW">Low</option><option value="MEDIUM_LOW">Medium-low</option><option value="MEDIUM">Medium</option><option value="MEDIUM_HIGH">Medium-high</option><option value="HIGH">High</option></select></dd></div>
+          <div class="setting-row"><dt><span class="setting-icon"><svg class="icon"><use href="#i-swing"/></svg></span><label for="swing">Vertical swing</label></dt><dd><select id="swing" disabled><option value="" disabled>Unavailable</option><option value="0">Default / stop</option><option value="1">Full swing</option><option value="2">Fixed: highest</option><option value="3">Fixed: upper</option><option value="4">Fixed: middle</option><option value="5">Fixed: lower</option><option value="6">Fixed: lowest</option><option value="7">Swing: lower range</option><option value="8">Swing: lower-middle</option><option value="9">Swing: middle range</option><option value="10">Swing: upper-middle</option><option value="11">Swing: upper range</option></select></dd></div>
+        </dl><button class="apply settings-apply" id="applySettings" type="button" disabled>Settings are up to date</button><p class="settings-note">Choose your settings, then apply. Some modes may limit fan speed or temperature; available features depend on your AC.</p></section>
+      </aside>
+    </div>
+    <div class="feedback" id="feedback" role="status" aria-live="polite">Connecting to your air conditioner…</div>
+    <footer><span><span class="footer-dot"></span> Local PC connection</span><span id="updated">Waiting for status</span></footer>
+    <noscript><p class="noscript">Enable JavaScript to use the controls.</p></noscript>
+  </main>
+</body>
+</html>
