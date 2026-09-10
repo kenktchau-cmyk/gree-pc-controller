@@ -1,5 +1,7 @@
 # Gree PC Controller
 
+[English](README.md) | [繁體中文](README.zh-TW.md)
+
 A local browser control panel for a compatible Gree Wi-Fi air conditioner, with Windows launchers and a Java REST backend.
 
 ## Controls
@@ -88,3 +90,4 @@ Changes include the browser GUI, protocol v2 support, additional firmware metada
 No license file was present in the upstream snapshot. This repository does not add a license grant for upstream code. Check the original authors' permissions and dependency licenses before redistributing it or using it commercially.
 
 Runtime downloads, compiled files, logs, local addresses, and device-specific configuration are excluded from Git.
+
